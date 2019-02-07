@@ -14,7 +14,7 @@ public class PairService implements IPairService{
     @Autowired
     private IHolidayApiExternalService holidayApiExternalService;
 
-    HolidayApiQueryParams createHolidayApiQueryParams(String countryCode, Date date){
+    private HolidayApiQueryParams createHolidayApiQueryParams(String countryCode, Date date){
         return new HolidayApiQueryParams()
                 .country(countryCode)
                 .year(date.getYear())
@@ -34,8 +34,8 @@ public class PairService implements IPairService{
                 secondHolidayNameOptional, date);
     }
 
-    private String dateToString(Date date){
-        DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+    String dateToString(Date date){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(date);
     }
 
