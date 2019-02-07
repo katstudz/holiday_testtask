@@ -9,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
+import static com.task.holiday.model.APIParameter.API_KEY;
+
 @Service
 public class HolidayApiExternalService implements IHolidayApiExternalService{
     private RestTemplate restTemplate = new RestTemplate();
@@ -19,7 +21,7 @@ public class HolidayApiExternalService implements IHolidayApiExternalService{
 
 
     private String createPathParam(HolidayApiQueryParams params){
-        String keyParam = "key="+ key +"&";
+        String keyParam = API_KEY.toString() + "="+ key +"&";
         return REST_URI + keyParam + params.toPathVariable();
     }
 

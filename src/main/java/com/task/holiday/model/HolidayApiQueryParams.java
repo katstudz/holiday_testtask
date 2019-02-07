@@ -9,39 +9,12 @@ import java.util.Map;
 
 import static com.task.holiday.model.APIParameter.*;
 
-//key=7f14e06c-c6ca-4a0b-bbd4-b47fd70aa8f4&country=PL&year=2016&month=01
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Getter
-//@Setter
-//@Builder
-//public class HolidayApiRequestParam {
-//    private String country;
-//    private String year;
-//    private String month;
-//    private String day;
-//
-//    @Override
-//    public String toString(){
-//        return "&country=" + country +
-//               "&year=" + year +
-//               "&month=" + month +
-//               "&day=" + day;
-//    }
-//}
-//
-
 public class HolidayApiQueryParams {
 
     private Map<String, Object> params;
 
     public HolidayApiQueryParams() {
         params = new HashMap<>();
-    }
-
-    public HolidayApiQueryParams key(String key) {
-        params.put(API_KEY.toString(), key);
-        return this;
     }
 
     public HolidayApiQueryParams country(String country) {
