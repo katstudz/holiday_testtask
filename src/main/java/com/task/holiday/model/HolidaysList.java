@@ -4,6 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class HolidayDataResponse {
+public class HolidaysList {
     private List<Holiday> holidays;
 }

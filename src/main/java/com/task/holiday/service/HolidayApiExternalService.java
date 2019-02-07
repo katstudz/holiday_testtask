@@ -1,7 +1,7 @@
 package com.task.holiday.service;
 
 import com.task.holiday.model.HolidayApiQueryParams;
-import com.task.holiday.model.HolidayDataResponse;
+import com.task.holiday.model.HolidaysList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Optional;
 
 @Service
-public class HolidayApiExternalService {
+public class HolidayApiExternalService implements IHolidayApiExternalService{
     private RestTemplate restTemplate = new RestTemplate();
 
     private static final String REST_URI
@@ -23,15 +23,15 @@ public class HolidayApiExternalService {
         return REST_URI + keyParam + params.toPathVariable();
     }
 
-    public Optional<HolidayDataResponse> getJsonEmployee(HolidayApiQueryParams params) {
+    public Optional<HolidaysList> getHolidaysList(HolidayApiQueryParams params) {
         String fooResourceUrl = createPathParam(params);
-        ResponseEntity<HolidayDataResponse> response =
-                restTemplate.getForEntity(fooResourceUrl , HolidayDataResponse.class);
+        ResponseEntity<HolidaysList> response =
+                restTemplate.getForEntity(fooResourceUrl , HolidaysList.class);
 
         if(response.getStatusCode() == HttpStatus.OK){
-            HolidayDataResponse holidayDataResponse = response.getBody();
-            assert holidayDataResponse != null;
-            return Optional.of(holidayDataResponse);
+            HolidaysList holidaysList = response.getBody();
+            assert holidaysList != null;
+            return Optional.of(holidaysList);
         }
         return Optional.empty();
     }

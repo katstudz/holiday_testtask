@@ -24,7 +24,7 @@ public class HolidayController {
                 .year(2013)
                 .day(1)
                 .month(1);
-        return holidayApiExternalService.getJsonEmployee(request).toString();
+        return holidayApiExternalService.getHolidaysList(request).toString();
     }
 
 //    @PostMapping("/getPairForCountry") //todo add error's info

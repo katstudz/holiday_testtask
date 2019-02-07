@@ -5,12 +5,7 @@ public enum APIParameter {
     COUNTRY("country"),
     YEAR("year"),
     MONTH("month"),
-    DAY("day"),
-    PREVIOUS("previous"),
-    UPCOMING("upcoming"),
-    PUBLIC("public"),
-    FORMAT("format"),
-    PRETTY("pretty");
+    DAY("day");
 
     private String param;
 
