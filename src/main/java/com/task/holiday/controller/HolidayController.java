@@ -1,6 +1,6 @@
 package com.task.holiday.controller;
 
-import com.task.holiday.model.HolidayApiRequest;
+import com.task.holiday.model.HolidayApiQueryParams;
 import com.task.holiday.service.HolidayApiExternalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,12 +19,11 @@ public class HolidayController {
 
     @PostMapping("/post")
     public String test(){
-        HolidayApiRequest request  = HolidayApiRequest.builder()
+        HolidayApiQueryParams request  = new HolidayApiQueryParams()
                 .country("PL")
-                .year("2013")
-                .day("01")
-                .month("01")
-                .build();
+                .year(2013)
+                .day(1)
+                .month(1);
         return holidayApiExternalService.getJsonEmployee(request).toString();
     }
 
