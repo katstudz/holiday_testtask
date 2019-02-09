@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -22,5 +23,5 @@ public class CountryPairRequest {
 
     @NotNull
     @DateTimeFormat(pattern="YYYY-MM-DD")
-    private Date date;
+    private LocalDate date;
 }

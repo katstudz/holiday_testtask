@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,8 +47,8 @@ public class PairServiceTest {
     private ICheckValidation checkValidation;
 
     private String plHolidayName = "Sylwester";
-    private String holidayDate = "1994-12-30";
-    private Date date;
+    private String holidayDate = "1995-12-23";
+    private LocalDate date;
     private String pattern = "yyyy-MM-dd";
 
     @Before
@@ -59,7 +60,8 @@ public class PairServiceTest {
         when(externalService.getHolidaysList(any())).thenReturn(Optional.of(plHolidaysList));
 
         SimpleDateFormat format = new SimpleDateFormat(pattern);
-        date = format.parse(holidayDate);
+
+        date = LocalDate.of(1995, 12, 23);
         when(checkValidation.check(any())).thenReturn(true);
     }
 

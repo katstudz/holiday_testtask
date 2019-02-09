@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @RunWith(SpringRunner.class)
@@ -22,7 +23,7 @@ public class CountryRequestValidationCheckerTest {
     @Test
     public void checkCorrectCountryPairRequest_returnValid(){
         CountryPairRequest request = new CountryPairRequest(
-                "PL", "DE", new Date());
+                "PL", "DE", LocalDate.of(2000, 12, 1));
         boolean isValid = validationChecker.check(request);
         Assert.assertTrue(isValid);
     }
@@ -30,7 +31,7 @@ public class CountryRequestValidationCheckerTest {
     @Test
     public void checkAllNameFirstCountryPairRequest_returnValid(){
         CountryPairRequest request = new CountryPairRequest(
-                "POLONIA", "DE", new Date());
+                "POLONIA", "DE", LocalDate.of(2000, 12, 1));
         boolean isValid = validationChecker.check(request);
         Assert.assertFalse(isValid);
     }
@@ -38,7 +39,7 @@ public class CountryRequestValidationCheckerTest {
     @Test
     public void checkTooShortSecondCountryPairRequest_returnValid(){
         CountryPairRequest request = new CountryPairRequest(
-                "PL", "D", new Date());
+                "PL", "D", LocalDate.of(2000, 12, 1));
         boolean isValid = validationChecker.check(request);
         Assert.assertFalse(isValid);
     }

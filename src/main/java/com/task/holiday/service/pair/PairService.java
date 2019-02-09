@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Optional;
 
@@ -19,12 +21,12 @@ public class PairService implements IPairService {
     @Autowired
     private ICheckValidation validationChecker;
 
-    private HolidayApiQueryParams createHolidayApiQueryParams(String countryCode, Date date){
+    private HolidayApiQueryParams createHolidayApiQueryParams(String countryCode, LocalDate date){
         return new HolidayApiQueryParams()
                 .country(countryCode)
                 .year(date.getYear())
-                .month(date.getMonth())
-                .day(date.getDay());
+                .month(date.getMonthValue())
+                .day(date.getDayOfMonth());
     }
 
     @Override
@@ -47,17 +49,17 @@ public class PairService implements IPairService {
                 secondHolidayNameOptional, date);
     }
 
-    private String dateToString(Date date){
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        return df.format(date);
+    private String dateToString(LocalDate date){
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return date.format(formatters);
     }
 
-    private String getHolidayName(String countryCode, Date date ){
+    private String getHolidayName(String countryCode, LocalDate date ){
         Optional<String> optionalHolidayName = getHolidayList(countryCode, date);
         return optionalHolidayName.orElse("_");
     }
 
-    private Optional<String> getHolidayList(String countryCode, Date date) {
+    private Optional<String> getHolidayList(String countryCode, LocalDate date) {
         HolidayApiQueryParams apiQueryParams = createHolidayApiQueryParams(countryCode, date);
         Optional<HolidaysList> optionalHolidaysList = holidayApiExternalService.getHolidaysList(apiQueryParams);
         if(optionalHolidaysList.isPresent()){
