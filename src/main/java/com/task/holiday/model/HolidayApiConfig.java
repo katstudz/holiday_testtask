@@ -9,5 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class HolidayApiConfig {
     private String key;
-    private String address;
+    private String restUri;
 }
