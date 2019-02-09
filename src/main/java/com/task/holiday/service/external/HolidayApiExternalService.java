@@ -1,4 +1,4 @@
-package com.task.holiday.service;
+package com.task.holiday.service.external;
 
 import com.task.holiday.model.HolidayApiQueryParams;
 import com.task.holiday.model.HolidaysList;
@@ -12,7 +12,7 @@ import java.util.Optional;
 import static com.task.holiday.model.APIParameter.API_KEY;
 
 @Service
-public class HolidayApiExternalService implements IHolidayApiExternalService{
+public class HolidayApiExternalService implements IHolidayApiExternalService {
     private RestTemplate restTemplate = new RestTemplate();
 
     private static final String REST_URI

@@ -1,8 +1,8 @@
 package com.task.holiday.service;
 
-import com.task.holiday.model.Holiday;
-import com.task.holiday.model.HolidayPairResponse;
-import com.task.holiday.model.HolidaysList;
+import com.task.holiday.model.*;
+import com.task.holiday.service.external.IHolidayApiExternalService;
+import com.task.holiday.service.pair.PairService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -42,38 +41,34 @@ public class PairServiceTest {
     @MockBean
     private IHolidayApiExternalService externalService;
 
-    private String holidayName = "holidayName";
-    private String holidayDate = "1994-02-12";
+    private String plHolidayName = "Sylwester";
+    private String holidayDate = "1994-12-30";
     private Date date;
+    private String pattern = "yyyy-MM-dd";
 
     @Before
     public void setup() throws ParseException {
-        Holiday holiday = new Holiday(holidayName, holidayDate, "observed", true);
-        List<Holiday> list = new ArrayList<>();
-        list.add(holiday);
-        HolidaysList holidaysList = new HolidaysList(list);
-        when(externalService.getHolidaysList(any())).thenReturn(Optional.of(holidaysList));
+        Holiday plHoliday = new Holiday(plHolidayName, holidayDate, "observed", true);
+        List<Holiday> plList = new ArrayList<>();
+        plList.add(plHoliday);
+        HolidaysList plHolidaysList = new HolidaysList(plList);
+        when(externalService.getHolidaysList(any())).thenReturn(Optional.of(plHolidaysList));
 
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        date = format.parse ( holidayDate);
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        date = format.parse(holidayDate);
     }
 
     @Test
-    public void test() throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    public void getPairFromResponse_shouldHaveCorrectVariable() {
+        HolidayPairResponse p;
 
-        String parsedDate = pairService.dateToString(date);
-        Assert.assertEquals(holidayDate, parsedDate);
+        CountryPairRequest request = new CountryPairRequest("PL", "PL", date );
+        HolidayPairResponse pairResponse = pairService.getPairResponse(request);
+
+        Assert.assertEquals(holidayDate, pairResponse.getDate());
+        Assert.assertEquals(plHolidayName, pairResponse.getName1());
+        Assert.assertEquals(plHolidayName, pairResponse.getName2());
     }
 
-    @Test
-    public void tes3t() throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date = format.parse ( holidayDate);
-
-        String parsedDate = pairService.dateToString(date);
-        Assert.assertEquals(holidayDate, parsedDate);
-    }
 }

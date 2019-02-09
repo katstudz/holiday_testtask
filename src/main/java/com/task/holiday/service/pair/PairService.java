@@ -1,6 +1,8 @@
-package com.task.holiday.service;
+package com.task.holiday.service.pair;
 
 import com.task.holiday.model.*;
+import com.task.holiday.service.external.IHolidayApiExternalService;
+import com.task.holiday.service.pair.IPairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-public class PairService implements IPairService{
+public class PairService implements IPairService {
     @Autowired
     private IHolidayApiExternalService holidayApiExternalService;
 
@@ -34,7 +36,7 @@ public class PairService implements IPairService{
                 secondHolidayNameOptional, date);
     }
 
-    String dateToString(Date date){
+    private String dateToString(Date date){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(date);
     }
