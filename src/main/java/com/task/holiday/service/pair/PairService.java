@@ -2,7 +2,7 @@ package com.task.holiday.service.pair;
 
 import com.task.holiday.model.*;
 import com.task.holiday.service.external.IHolidayApiExternalService;
-import com.task.holiday.service.pair.IPairService;
+import com.task.holiday.tools.ICheckValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +16,9 @@ public class PairService implements IPairService {
     @Autowired
     private IHolidayApiExternalService holidayApiExternalService;
 
+    @Autowired
+    private ICheckValidation validationChecker;
+
     private HolidayApiQueryParams createHolidayApiQueryParams(String countryCode, Date date){
         return new HolidayApiQueryParams()
                 .country(countryCode)
@@ -25,7 +28,15 @@ public class PairService implements IPairService {
     }
 
     @Override
-    public HolidayPairResponse getPairResponse(CountryPairRequest countryPairRequest) {
+    public Optional<HolidayPairResponse> getPairResponse(CountryPairRequest countryPairRequest) {
+        if(validationChecker.check(countryPairRequest)){
+            HolidayPairResponse holidayPairResponse = processCountryPairRequest(countryPairRequest);
+            return Optional.of(holidayPairResponse);
+        }
+        return Optional.empty();
+    }
+
+    private HolidayPairResponse processCountryPairRequest(CountryPairRequest countryPairRequest) {
         String firstHolidayNameOptional = getHolidayName(countryPairRequest.getFirstCountryCode(),
                 countryPairRequest.getDate());
         String secondHolidayNameOptional = getHolidayName(countryPairRequest.getSecondCountryCode(),

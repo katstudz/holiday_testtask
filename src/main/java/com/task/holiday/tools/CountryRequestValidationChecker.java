@@ -2,7 +2,9 @@ package com.task.holiday.tools;
 
 import com.neovisionaries.i18n.CountryCode;
 import com.task.holiday.model.CountryPairRequest;
+import org.springframework.stereotype.Component;
 
+@Component("CountryRequestValidationChecker")
 public class CountryRequestValidationChecker implements ICheckValidation {
 
     @Override

@@ -25,7 +25,6 @@ public class HolidayApiExternalService implements IHolidayApiExternalService {
         this.key = holidayApiConfig.getKey();
     }
 
-
     private String createPathParam(HolidayApiQueryParams params){
         String keyParam = API_KEY.toString() + "="+ key +"&";
         return REST_URI + keyParam + params.toPathVariable();

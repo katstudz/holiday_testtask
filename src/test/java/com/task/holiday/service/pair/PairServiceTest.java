@@ -1,8 +1,9 @@
-package com.task.holiday.service;
+package com.task.holiday.service.pair;
 
 import com.task.holiday.model.*;
 import com.task.holiday.service.external.IHolidayApiExternalService;
 import com.task.holiday.service.pair.PairService;
+import com.task.holiday.tools.ICheckValidation;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +42,9 @@ public class PairServiceTest {
     @MockBean
     private IHolidayApiExternalService externalService;
 
+    @MockBean
+    private ICheckValidation checkValidation;
+
     private String plHolidayName = "Sylwester";
     private String holidayDate = "1994-12-30";
     private Date date;
@@ -54,21 +58,25 @@ public class PairServiceTest {
         HolidaysList plHolidaysList = new HolidaysList(plList);
         when(externalService.getHolidaysList(any())).thenReturn(Optional.of(plHolidaysList));
 
-
         SimpleDateFormat format = new SimpleDateFormat(pattern);
         date = format.parse(holidayDate);
+        when(checkValidation.check(any())).thenReturn(true);
     }
 
     @Test
     public void getPairFromResponse_shouldHaveCorrectVariable() {
-        HolidayPairResponse p;
-
         CountryPairRequest request = new CountryPairRequest("PL", "PL", date );
-        HolidayPairResponse pairResponse = pairService.getPairResponse(request);
+        Optional<HolidayPairResponse> optionalHolidayPairResponse = pairService.getPairResponse(request);
 
-        Assert.assertEquals(holidayDate, pairResponse.getDate());
-        Assert.assertEquals(plHolidayName, pairResponse.getName1());
-        Assert.assertEquals(plHolidayName, pairResponse.getName2());
+        if(optionalHolidayPairResponse.isPresent()){
+            HolidayPairResponse pairResponse =optionalHolidayPairResponse.get();
+            Assert.assertEquals(holidayDate, pairResponse.getDate());
+            Assert.assertEquals(plHolidayName, pairResponse.getName1());
+            Assert.assertEquals(plHolidayName, pairResponse.getName2());
+        }
+        else
+            Assert.fail("get HolidayPairResponse empty");
+
     }
 
 }

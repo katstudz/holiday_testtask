@@ -36,6 +36,18 @@ public class HolidayApiExternalServiceTest {
     }
 
     @Test
+    public void getResponseForNumericCodeCountryParams(){
+        HolidayApiQueryParams queryParams = new HolidayApiQueryParams()
+                .country("49")
+                .day(1)
+                .month(1)
+                .year(1994);
+
+        Optional<HolidaysList> optionalList = externalService.getHolidaysList(queryParams);
+        Assert.assertEquals(Optional.empty(), optionalList);
+    }
+
+    @Test
     public void getResponseForIncorrectCountryParams(){
         HolidayApiQueryParams queryParams = new HolidayApiQueryParams()
                 .country("KOKOKO")
