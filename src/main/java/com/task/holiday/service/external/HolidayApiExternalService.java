@@ -20,6 +20,8 @@ public class HolidayApiExternalService implements IHolidayApiExternalService {
     private String key = "7f14e06c-c6ca-4a0b-bbd4-b47fd70aa8f4";
 
 
+
+
     private String createPathParam(HolidayApiQueryParams params){
         String keyParam = API_KEY.toString() + "="+ key +"&";
         return REST_URI + keyParam + params.toPathVariable();
@@ -27,14 +29,17 @@ public class HolidayApiExternalService implements IHolidayApiExternalService {
 
     public Optional<HolidaysList> getHolidaysList(HolidayApiQueryParams params) {
         String fooResourceUrl = createPathParam(params);
-        ResponseEntity<HolidaysList> response =
-                restTemplate.getForEntity(fooResourceUrl , HolidaysList.class);
+        try {
+            ResponseEntity<HolidaysList> response =
+                    restTemplate.getForEntity(fooResourceUrl , HolidaysList.class);
 
-        if(response.getStatusCode() == HttpStatus.OK){
-            HolidaysList holidaysList = response.getBody();
-            assert holidaysList != null;
-            return Optional.of(holidaysList);
+            if(response.getStatusCode() == HttpStatus.OK){
+                HolidaysList holidaysList = response.getBody();
+                assert holidaysList != null;
+                return Optional.of(holidaysList);
+            }
         }
+        catch (Exception ignored){}
         return Optional.empty();
     }
 }

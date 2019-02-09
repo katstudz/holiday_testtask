@@ -53,7 +53,11 @@
             <artifactId>jaxrs-ri</artifactId>
             <version>2.28</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.neovisionaries</groupId>
+            <artifactId>nv-i18n</artifactId>
+            <version>1.22</version>
+        </dependency>
     </dependencies>
 
     <build>

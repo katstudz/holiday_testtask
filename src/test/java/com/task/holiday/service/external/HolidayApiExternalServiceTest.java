@@ -35,4 +35,16 @@ public class HolidayApiExternalServiceTest {
         Assert.assertEquals(1, holidaysList.getHolidays().size());
     }
 
+    @Test
+    public void getResponseForIncorrectCountryParams(){
+        HolidayApiQueryParams queryParams = new HolidayApiQueryParams()
+                .country("KOKOKO")
+                .day(1)
+                .month(1)
+                .year(1994);
+
+        Optional<HolidaysList> optionalList = externalService.getHolidaysList(queryParams);
+        Assert.assertEquals(Optional.empty(), optionalList);
+    }
+
 }

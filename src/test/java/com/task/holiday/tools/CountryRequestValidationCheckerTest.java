@@ -22,7 +22,7 @@ public class CountryRequestValidationCheckerTest {
     @Test
     public void checkCorrectCountryPairRequest_returnValid(){
         CountryPairRequest request = new CountryPairRequest(
-                "PL", "DE", new Date("1994-12-23"));
+                "PL", "DE", new Date());
         boolean isValid = validationChecker.check(request);
         Assert.assertTrue(isValid);
     }
@@ -30,7 +30,7 @@ public class CountryRequestValidationCheckerTest {
     @Test
     public void checkAllNameFirstCountryPairRequest_returnValid(){
         CountryPairRequest request = new CountryPairRequest(
-                "POLONIA", "DE", new Date("1994-12-23"));
+                "POLONIA", "DE", new Date());
         boolean isValid = validationChecker.check(request);
         Assert.assertFalse(isValid);
     }
@@ -38,7 +38,7 @@ public class CountryRequestValidationCheckerTest {
     @Test
     public void checkTooShortSecondCountryPairRequest_returnValid(){
         CountryPairRequest request = new CountryPairRequest(
-                "PL", "D", new Date("1994-12-23"));
+                "PL", "D", new Date());
         boolean isValid = validationChecker.check(request);
         Assert.assertFalse(isValid);
     }
