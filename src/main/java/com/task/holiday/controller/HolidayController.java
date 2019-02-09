@@ -28,7 +28,7 @@ public class HolidayController {
     }
 
 //    @PostMapping("/getPairForCountry") //todo add error's info
-//    public String getHolidayPair(@RequestBody @Valid CountryPairRequest countryPairRequest){
+//    public String getHolidayPair(@RequestBody @CountryRequestValid CountryPairRequest countryPairRequest){
 //        Optional<HolidayPairResponse> holidayPairResponse = pairService.getHolidayPair(countryPairRequest);
 //        return holidayPairResponse.toString();
 //    }
