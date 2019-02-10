@@ -31,10 +31,10 @@ public class HolidayApiExternalService implements IHolidayApiExternalService {
     }
 
     public Optional<HolidaysList> getHolidaysList(HolidayApiQueryParams params) {
-        String fooResourceUrl = createPathParam(params);
+        String resourceUrl = createPathParam(params);
         try {
             ResponseEntity<HolidaysList> response =
-                    restTemplate.getForEntity(fooResourceUrl , HolidaysList.class);
+                    restTemplate.getForEntity(resourceUrl, HolidaysList.class);
 
             if(response.getStatusCode() == HttpStatus.OK){
                 HolidaysList holidaysList = response.getBody();

@@ -21,14 +21,6 @@ public class PairService implements IPairService {
     @Autowired
     private ICheckValidation validationChecker;
 
-    private HolidayApiQueryParams createHolidayApiQueryParams(String countryCode, LocalDate date){
-        return new HolidayApiQueryParams()
-                .country(countryCode)
-                .year(date.getYear())
-                .month(date.getMonthValue())
-                .day(date.getDayOfMonth());
-    }
-
     @Override
     public Optional<HolidayPairResponse> getPairResponse(CountryPairRequest countryPairRequest) {
         if(validationChecker.check(countryPairRequest)){
@@ -36,6 +28,14 @@ public class PairService implements IPairService {
             return Optional.of(holidayPairResponse);
         }
         return Optional.empty();
+    }
+
+    private HolidayApiQueryParams createHolidayApiQueryParams(String countryCode, LocalDate date){
+        return new HolidayApiQueryParams()
+                .country(countryCode)
+                .year(date.getYear())
+                .month(date.getMonthValue())
+                .day(date.getDayOfMonth());
     }
 
     private HolidayPairResponse processCountryPairRequest(CountryPairRequest countryPairRequest) {
@@ -50,23 +50,30 @@ public class PairService implements IPairService {
     }
 
     private String dateToString(LocalDate date){
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return date.format(formatters);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return date.format(formatter);
     }
 
     private String getHolidayName(String countryCode, LocalDate date ){
-        Optional<String> optionalHolidayName = getHolidayList(countryCode, date);
+        Optional<String> optionalHolidayName = getNameFromFirstHolidayListElement(countryCode, date);
         return optionalHolidayName.orElse("_");
     }
 
-    private Optional<String> getHolidayList(String countryCode, LocalDate date) {
+    private Optional<String> getNameFromFirstHolidayListElement(String countryCode, LocalDate date) {
         HolidayApiQueryParams apiQueryParams = createHolidayApiQueryParams(countryCode, date);
         Optional<HolidaysList> optionalHolidaysList = holidayApiExternalService.getHolidaysList(apiQueryParams);
         if(optionalHolidaysList.isPresent()){
             HolidaysList holidaysList = optionalHolidaysList.get();
+            return tryGetFirstHolidayFromList(holidaysList);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<String> tryGetFirstHolidayFromList(HolidaysList holidaysList) {
+        if(holidaysList.getHolidays().size() > 0){
             Holiday holiday = holidaysList.getHolidays().get(0);
             return Optional.of(holiday.getName());
         }
-        return Optional.empty();
+        return Optional.of("_");
     }
 }
