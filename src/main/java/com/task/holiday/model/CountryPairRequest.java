@@ -8,7 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @ToString
@@ -16,7 +15,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class CountryPairRequest {
     @NotNull
-    //todo add validation for len
     private String firstCountryCode;
     @NotNull
     private String secondCountryCode;

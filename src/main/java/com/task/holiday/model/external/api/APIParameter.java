@@ -1,4 +1,4 @@
-package com.task.holiday.model;
+package com.task.holiday.model.external.api;
 
 public enum APIParameter {
     API_KEY("key"),

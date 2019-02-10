@@ -1,16 +1,16 @@
 package com.task.holiday.service.pair;
 
 import com.task.holiday.model.*;
+import com.task.holiday.model.external.api.Holiday;
+import com.task.holiday.model.external.api.HolidayApiQueryParams;
+import com.task.holiday.model.external.api.HolidaysList;
 import com.task.holiday.service.external.IHolidayApiExternalService;
 import com.task.holiday.tools.ICheckValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Optional;
 
 @Service

@@ -1,4 +1,4 @@
-package com.task.holiday.model;
+package com.task.holiday.model.external.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

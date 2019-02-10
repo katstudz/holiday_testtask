@@ -1,13 +1,11 @@
-package com.task.holiday.model;
+package com.task.holiday.model.external.api;
 
-
-import lombok.*;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.task.holiday.model.APIParameter.*;
+import static com.task.holiday.model.external.api.APIParameter.*;
 
 public class HolidayApiQueryParams {
 

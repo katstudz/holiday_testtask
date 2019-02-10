@@ -1,8 +1,9 @@
 package com.task.holiday.service.pair;
 
 import com.task.holiday.model.*;
+import com.task.holiday.model.external.api.Holiday;
+import com.task.holiday.model.external.api.HolidaysList;
 import com.task.holiday.service.external.IHolidayApiExternalService;
-import com.task.holiday.service.pair.PairService;
 import com.task.holiday.tools.ICheckValidation;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,7 +19,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
