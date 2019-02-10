@@ -5,7 +5,6 @@ import com.task.holiday.model.CountryPairRequest;
 import com.task.holiday.model.HolidayPairResponse;
 import com.task.holiday.resttemplate.calls.HolidayControllerCalls;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +49,6 @@ public class HolidayControllerTest {
         Assert.assertEquals("_",response.getName1());
         Assert.assertEquals("_",response.getName2());
     }
-
 
     @Test
     public void checkHolidayForSilvester_getCorrectResponse(){
